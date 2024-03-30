@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwrihr55ut23o"]
+
+[ext_resource type="Material" uid="uid://dcu6fta6j4xge" path="res://materials/wood_regular.tres" id="1_i5ysr"]
+[ext_resource type="Script" path="res://scripts/wood_block.gd" id="1_w2l5q"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_q75b5"]
+material = ExtResource("1_i5ysr")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ghxxe"]
+
+[node name="wood block" type="StaticBody3D"]
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("1_w2l5q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 3
+mesh = SubResource("BoxMesh_q75b5")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ghxxe")

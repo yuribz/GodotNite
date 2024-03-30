@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://bk75t5v3bdfu5"]
+
+[ext_resource type="PackedScene" uid="uid://gsfgk5edlabc" path="res://player/player.tscn" id="1_b8mnt"]
+[ext_resource type="Texture2D" uid="uid://denjnlpdlbf1e" path="res://textures/floor.jpg" id="2_oixh0"]
+[ext_resource type="AudioStream" uid="uid://qeqn3nwvvv8j" path="res://music/01. Battle Royal (Guitar Theme).mp3" id="3_0bog8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_metf1"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_yh2tk"]
+sky_material = SubResource("ProceduralSkyMaterial_metf1")
+
+[sub_resource type="Environment" id="Environment_vfvcc"]
+background_mode = 2
+sky = SubResource("Sky_yh2tk")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ro8rh"]
+albedo_texture = ExtResource("2_oixh0")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2o53g"]
+material = SubResource("StandardMaterial3D_ro8rh")
+size = Vector2(100, 100)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_i3gh4"]
+
+[node name="main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vfvcc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_b8mnt")]
+
+[node name="Floor Ground" type="StaticBody3D" parent="."]
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor Ground"]
+layers = 3
+mesh = SubResource("PlaneMesh_2o53g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor Ground"]
+shape = SubResource("WorldBoundaryShape3D_i3gh4")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0bog8")
+volume_db = -15.0
+autoplay = true
+
+[node name="Building Grid" type="GridMap" parent="."]
+cell_size = Vector3(1, 1, 1)

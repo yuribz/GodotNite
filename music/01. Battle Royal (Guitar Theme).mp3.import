@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://qeqn3nwvvv8j"
+path="res://.godot/imported/01. Battle Royal (Guitar Theme).mp3-951ead28ff17d6cd3377d5a2fecee8d4.mp3str"
+
+[deps]
+
+source_file="res://music/01. Battle Royal (Guitar Theme).mp3"
+dest_files=["res://.godot/imported/01. Battle Royal (Guitar Theme).mp3-951ead28ff17d6cd3377d5a2fecee8d4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

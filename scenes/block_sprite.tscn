@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtk2jk0tupd8"]
+
+[ext_resource type="Script" path="res://scripts/wood_block_sprite.gd" id="1_t1vi1"]
+[ext_resource type="Material" uid="uid://ssm2lv7seox5" path="res://materials/wood_transparent.tres" id="2_7r5au"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_q75b5"]
+material = ExtResource("2_7r5au")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ghxxe"]
+
+[node name="block" type="Area3D"]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_t1vi1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 3
+mesh = SubResource("BoxMesh_q75b5")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ghxxe")
