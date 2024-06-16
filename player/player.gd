@@ -31,6 +31,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Do the movement
 	movement(delta)
+	building_and_interacting()
 	
 func _process(delta: float) -> void:
 	weapon.active = not building
@@ -67,20 +68,6 @@ func movement(delta : float) -> void:
 			spring.get_child(0).queue_free()
 			building = false
 	
-	if building:
-		var where_to_place : BuildingSprite = spring.get_child(0)
-		
-		$where_placing.text = str(where_to_place.can_place)
-		#where_to_place.global_position = snap_position(where_to_place.global_position)
-	
-		if parse_action("place_block") and where_to_place.can_place:
-			var new_block : Building = block_physical.instantiate()
-			
-			new_block.global_position = snap_position(where_to_place.global_position)
-			get_owner().add_child(new_block)
-			
-		
-	
 	
 	# WASD movement
 	var input_dir := Input.get_vector("left", "right", "forward", "back")
@@ -94,6 +81,25 @@ func movement(delta : float) -> void:
 	
 	# apply velocity
 	move_and_slide()
+
+func building_and_interacting() -> void:
+	if building:
+		var where_to_place : BuildingSprite = spring.get_child(0)
+		
+		$where_placing.text = str(where_to_place.can_place)
+		#where_to_place.global_position = snap_position(where_to_place.global_position)
+	
+		if parse_action("place_block") and where_to_place.can_place:
+			var new_block : Building = block_physical.instantiate()
+			
+			new_block.global_position = snap_position(where_to_place.global_position)
+			get_owner().add_child(new_block)
+	else:
+		if weapon.get_child(0) != null:
+			var active_weapon = weapon.get_child(0)
+			if parse_action("shoot"):
+				active_weapon.get_node("a_player").play("shoot")
+				await active_weapon.get_node("a_player").animation_finished
 		
 func place_blocks():
 	pass
